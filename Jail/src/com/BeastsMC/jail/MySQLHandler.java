@@ -158,8 +158,8 @@ public class MySQLHandler {
 
     public void jailPlayer(String prisoner, String jailer, int time, String reason, String inventory, boolean online) throws SQLException {
         PreparedStatement stmt = getPreparedStatement(JailSQLQueries.ADD_PRISONER);
-        stmt.setString(1, prisoner.getUniqueId().toString());
-        stmt.setString(2, jailer.getUniqueId().toString());
+        stmt.setString(1, prisoner);
+        stmt.setString(2, jailer);
         stmt.setString(3, jail.getMainJail());
         stmt.setInt(4, time);
         stmt.setInt(5, time);
