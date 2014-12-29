@@ -1,0 +1,14 @@
+database:
+    host: localhost
+    database: jail
+    user: jail
+    password: jail
+save:
+    inventories: true
+    locations: true
+command-whitelist:
+    - jailstatus
+    - msg
+    - r
+    - pm
+    - whisper
