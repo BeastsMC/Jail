@@ -6,6 +6,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
@@ -16,25 +18,38 @@ public class Jail extends JavaPlugin {
     private MySQLHandler mysql;
 
     //Configuration settings
+    private String mainJail;
     private boolean saveInventories;
     private boolean saveLocatons;
     private HashSet<String> whitelistedCommands;
 
+    private HashSet<String> jailedPlayers;
+    private ArrayList<Prisoner> jailedOnlinePlayers;
+
     public void onEnable() {
         try {
             loadConfiguration();
-            setupMySQL();
-            setupListeners();
-            setupCommands();
         } catch (IOException |InvalidConfigurationException e) {
             getLogger().severe("Unable to load configuration! Disabling plugin.");
             getServer().getPluginManager().disablePlugin(this);
             e.printStackTrace();
         }
+        setupMySQL();
+        setupListeners();
+        setupCommands();
+
+        try {
+            jailedPlayers = mysql.getAllPrisonerUUIDs();
+        } catch (SQLException e) {
+            jailedPlayers = new HashSet<String>();
+            getLogger().severe("Unable to load prisoners! Check MySQL info.");
+            e.printStackTrace();
+        }
+        jailedOnlinePlayers = new ArrayList<Prisoner>();
     }
 
     public void onDisable() {
-
+        //TODO save to database
     }
 
     private void setupCommands() {
@@ -65,12 +80,16 @@ public class Jail extends JavaPlugin {
         saveDefaultConfig();
         getConfig().load(new File(getDataFolder(), "config.yml"));
 
+        mainJail = getConfig().getString("main-jail-name");
         saveInventories = getConfig().getBoolean("save.inventories");
         saveLocatons = getConfig().getBoolean("save.locations");
         whitelistedCommands = new HashSet<String>(getConfig().getStringList("whitelisted-commands"));
     }
 
 
+    public String getMainJail() {
+        return mainJail;
+    }
 
     public HashSet<String> getWhitelistedCommands() {
         return whitelistedCommands;
@@ -82,5 +101,13 @@ public class Jail extends JavaPlugin {
 
     public boolean saveLocatons() {
         return saveLocatons;
+    }
+
+    public HashSet<String> getJailedPlayers() {
+        return jailedPlayers;
+    }
+
+    public ArrayList<Prisoner> getJailedOnlinePlayers() {
+        return jailedOnlinePlayers;
     }
 }

@@ -1,3 +1,4 @@
+main-jail-name: jail
 database:
     host: localhost
     database: jail
