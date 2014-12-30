@@ -1,6 +1,7 @@
 package com.BeastsMC.jail;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import java.sql.*;
@@ -163,6 +164,7 @@ public class MySQLHandler {
         stmt.setInt(5, time);
         stmt.setString(6, inventory);
         stmt.setBoolean(7, dirty);
+        stmt.executeUpdate();
     }
 
     public boolean unjailPlayer(String prisoner) throws SQLException {
@@ -179,5 +181,26 @@ public class MySQLHandler {
             stmt.addBatch();
         }
         stmt.executeBatch();
+    }
+
+    public boolean addJail(String name, Location corner1, Location corner2, Location telein, Location teleout) throws SQLException {
+        PreparedStatement stmt = getPreparedStatement(JailSQLQueries.ADD_JAIL);
+
+        stmt.setString(1, name);
+        stmt.setString(2, CommonFunctions.locationToString(corner1, false, false));
+        stmt.setString(3, CommonFunctions.locationToString(corner2, false, false));
+        stmt.setString(4, CommonFunctions.locationToString(telein, true, true));
+        stmt.setString(5, CommonFunctions.locationToString(teleout, true, true));
+
+        int count = stmt.executeUpdate();
+        return count == 1;
+
+    }
+
+    public boolean removeJail(String name) throws SQLException {
+        PreparedStatement stmt = getPreparedStatement(JailSQLQueries.REMOVE_JAIL);
+        stmt.setString(1, name);
+        int count = stmt.executeUpdate();
+        return count == 1;
     }
 }
