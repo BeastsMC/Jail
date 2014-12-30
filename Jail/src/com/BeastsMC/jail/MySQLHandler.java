@@ -137,7 +137,6 @@ public class MySQLHandler {
                     rs.getInt("punishment"),
                     rs.getInt("remaining"),
                     rs.getString("inventory"),
-                    rs.getString("jail"),
                     rs.getBoolean("dirty")
             );
         }
