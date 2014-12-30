@@ -14,6 +14,7 @@ public enum JailSQLQueries {
     REMOVE_JAIL("DELETE FROM jails WHERE name=?"),
     ADD_PRISONER("INSERT INTO prisoners VALUES(?, ?, ?, ?, ?, ?)"),
     UNJAIL_PRISONER("DELETE FROM prisoners WHERE prisoner_uuid=?");
+
     public String query;
     JailSQLQueries(String query) {
         this.query = query;
