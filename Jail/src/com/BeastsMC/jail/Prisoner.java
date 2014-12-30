@@ -1,5 +1,7 @@
 package com.BeastsMC.jail;
 
+import org.bukkit.Bukkit;
+
 import java.util.UUID;
 
 /**
@@ -10,9 +12,10 @@ public class Prisoner {
     private final UUID staffId;
     private final String reason;
     private final int punishment;
-    private final int remaining;
+    private int remaining;
     private final String inventory;
-    private final boolean dirty;
+    private boolean dirty;
+    private boolean online;
 
     public Prisoner(String pid, String staffId, String reason, int punishment, int remaining, String inventory, boolean dirty) {
         this.pid = UUID.fromString(pid);
@@ -23,6 +26,11 @@ public class Prisoner {
         this.inventory = inventory;
         this.dirty = dirty;
     }
+
+    public void setOnline() {
+        online = Bukkit.getServer().getPlayer(pid) == null;
+    }
+
 
     public String getReason() {
         return reason;
@@ -51,4 +59,10 @@ public class Prisoner {
     public boolean isDirty() {
         return dirty;
     }
+
+    public boolean isOnline() {
+        return online;
+    }
+
+
 }

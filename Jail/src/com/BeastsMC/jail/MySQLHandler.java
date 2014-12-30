@@ -171,4 +171,13 @@ public class MySQLHandler {
         int removed = stmt.executeUpdate();
         return removed > 0;
     }
+
+    public void tickPrisoners(String[] prisoners) throws SQLException {
+        PreparedStatement stmt = getPreparedStatement(JailSQLQueries.TICK_PRISONER);
+        for (String prisoner : prisoners) {
+            stmt.setString(1, prisoner);
+            stmt.addBatch();
+        }
+        stmt.executeBatch();
+    }
 }
