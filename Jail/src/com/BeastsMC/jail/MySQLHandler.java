@@ -167,4 +167,11 @@ public class MySQLHandler {
         stmt.setString(6, inventory);
         stmt.setBoolean(7, dirty);
     }
+
+    public boolean unjailPlayer(String prisoner) throws SQLException {
+        PreparedStatement stmt = getPreparedStatement(JailSQLQueries.UNJAIL_PRISONER);
+        stmt.setString(1, prisoner);
+        int removed = stmt.executeUpdate();
+        return removed > 0;
+    }
 }
