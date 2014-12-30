@@ -13,8 +13,9 @@ public class Prisoner {
     private final int remaining;
     private final String inventory;
     private final String jail;
+    private final boolean dirty;
 
-    public Prisoner(String pid, String staffId, String reason, int punishment, int remaining, String inventory, String jail) {
+    public Prisoner(String pid, String staffId, String reason, int punishment, int remaining, String inventory, String jail, boolean dirty) {
         this.pid = UUID.fromString(pid);
         this.staffId = UUID.fromString(staffId);
         this.reason = reason;
@@ -22,6 +23,7 @@ public class Prisoner {
         this.remaining = remaining;
         this.inventory = inventory;
         this.jail = jail;
+        this.dirty = dirty;
     }
 
     public String getReason() {
@@ -50,5 +52,9 @@ public class Prisoner {
 
     public String getJail() {
         return jail;
+    }
+
+    public boolean isDirty() {
+        return dirty;
     }
 }

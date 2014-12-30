@@ -5,7 +5,7 @@ package com.BeastsMC.jail;
  */
 public enum JailSQLQueries {
     JAIL_TABLE_DEFINITION("CREATE TABLE IF NOT EXISTS jails (name varchar(255), world varchar(255), corner1 blob, corner2 blob, telein blob, teleout blob)"),
-    PRISON_TABLE_DEFINITION("CREATE TABLE IF NOT EXISTS prisoners (prisoner_uuid char(36), jailer_uuid char(36), jail_name varchar(255), punishment int, remaining int, reason varchar(255), inventory text, online boolean, PRIMARY_KEY(prisoner_uuid))"),
+    PRISON_TABLE_DEFINITION("CREATE TABLE IF NOT EXISTS prisoners (prisoner_uuid char(36), jailer_uuid char(36), jail_name varchar(255), punishment int, remaining int, reason varchar(255), inventory text, dirty boolean, PRIMARY_KEY(prisoner_uuid))"),
     FETCH_PRISONER_FROM_UUID("SELECT * FROM prisoners WHERE uuid=?"),
     FETCH_JAILS("SELECT * FROM jails"),
     FETCH_PRISONER_UUIDS("SELECT prisoner_uuid FROM prisoners"),

@@ -137,7 +137,8 @@ public class MySQLHandler {
                     rs.getInt("punishment"),
                     rs.getInt("remaining"),
                     rs.getString("inventory"),
-                    rs.getString("jail")
+                    rs.getString("jail"),
+                    rs.getBoolean("dirty")
             );
         }
         return prisoner;
@@ -156,7 +157,7 @@ public class MySQLHandler {
         return results;
     }
 
-    public void jailPlayer(String prisoner, String jailer, int time, String reason, String inventory, boolean online) throws SQLException {
+    public void jailPlayer(String prisoner, String jailer, int time, String reason, String inventory, boolean dirty) throws SQLException {
         PreparedStatement stmt = getPreparedStatement(JailSQLQueries.ADD_PRISONER);
         stmt.setString(1, prisoner);
         stmt.setString(2, jailer);
@@ -164,6 +165,6 @@ public class MySQLHandler {
         stmt.setInt(4, time);
         stmt.setInt(5, time);
         stmt.setString(6, inventory);
-        stmt.setBoolean(7, online);
+        stmt.setBoolean(7, dirty);
     }
 }
