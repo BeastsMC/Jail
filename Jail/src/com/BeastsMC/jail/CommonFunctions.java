@@ -46,7 +46,7 @@ public class CommonFunctions {
      * @return loc - the Location represented by the String
      */
     public static Location locationFromString(String strLoc, boolean direction) {
-        //TODO Validate output is correct so we don't returna non-world Location
+        //TODO Validate output is correct so we don't return a non-world Location
         double x, y, z;
         float yaw = 0, pitch = 0;
         int index = 0;

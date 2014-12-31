@@ -4,12 +4,12 @@ import com.BeastsMC.jail.Jail;
 import org.bukkit.command.CommandSender;
 
 /**
- * Created by Zane on 12/24/14.
+ * Created by Zane on 12/30/14.
  */
-public class JailCreateCommand implements GenericCommand {
+public class JailRemoveCommand implements GenericCommand {
     private final Jail jail;
 
-    public JailCreateCommand(Jail jail) {
+    public JailRemoveCommand(Jail jail) {
         this.jail = jail;
     }
 

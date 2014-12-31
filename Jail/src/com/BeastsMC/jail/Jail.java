@@ -58,6 +58,7 @@ public class Jail extends JavaPlugin {
         getCommand("jailstatus").setExecutor(executor);
         getCommand("unjail").setExecutor(executor);
         getCommand("jailcreate").setExecutor(executor);
+        getCommand("jailremove").setExecutor(executor);
     }
 
     private void setupListeners() {
