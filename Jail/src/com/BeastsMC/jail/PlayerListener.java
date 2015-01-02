@@ -66,5 +66,9 @@ public class PlayerListener implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void playerMove(PlayerMoveEvent event) {
+        if (jailPlugin.getJailedOnlinePlayers().contains(event.getPlayer())) {
+            boolean cancelled = jailPlugin.getMainJail().contains(event.getTo());
+            event.setCancelled(cancelled);
+        }
     }
 }

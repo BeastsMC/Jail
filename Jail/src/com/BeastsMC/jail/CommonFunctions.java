@@ -66,4 +66,22 @@ public class CommonFunctions {
 
     }
 
+    public static boolean locationBetweenLocations(Location corner1, Location corner2, Location point) {
+        if (corner1.getWorld() != corner2.getWorld() || corner1.getWorld() != point.getWorld()) {
+            return false;
+        }
+
+        int maxX = Math.max(corner1.getBlockX(), corner2.getBlockX());
+        int maxY = Math.max(corner1.getBlockY(), corner2.getBlockY());
+        int maxZ = Math.max(corner1.getBlockZ(), corner2.getBlockZ());
+
+        int minX = Math.min(corner1.getBlockX(), corner2.getBlockX());
+        int minY = Math.min(corner1.getBlockY(), corner2.getBlockY());
+        int minZ = Math.min(corner1.getBlockZ(), corner2.getBlockZ());
+
+        return (point.getBlockX() >= minX && point.getBlockX() <= maxX) &&
+                (point.getBlockY() >= minY && point.getBlockY() <= maxY) &&
+                (point.getBlockZ() >= minZ && point.getBlockZ() <= maxZ);
+    }
+
 }

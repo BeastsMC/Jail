@@ -157,7 +157,7 @@ public class MySQLHandler {
         PreparedStatement stmt = getPreparedStatement(JailSQLQueries.ADD_PRISONER);
         stmt.setString(1, prisoner);
         stmt.setString(2, jailer);
-        stmt.setString(3, jailPlugin.getMainJail());
+        stmt.setString(3, jailPlugin.getMainJailName());
         stmt.setInt(4, time);
         stmt.setInt(5, time);
         stmt.setString(6, inventory);

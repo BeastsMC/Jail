@@ -18,7 +18,8 @@ public class JailPlugin extends JavaPlugin {
     private MySQLHandler mysql;
 
     //Configuration settings
-    private String mainJail;
+    private String mainJailName;
+    private Jail mainJail;
     private boolean saveInventories;
     private boolean saveLocatons;
     private HashSet<String> whitelistedCommands;
@@ -81,14 +82,18 @@ public class JailPlugin extends JavaPlugin {
         saveDefaultConfig();
         getConfig().load(new File(getDataFolder(), "config.yml"));
 
-        mainJail = getConfig().getString("main-jail-name");
+        mainJailName = getConfig().getString("main-jail-name");
         saveInventories = getConfig().getBoolean("save.inventories");
         saveLocatons = getConfig().getBoolean("save.locations");
         whitelistedCommands = new HashSet<String>(getConfig().getStringList("whitelisted-commands"));
     }
 
 
-    public String getMainJail() {
+    public String getMainJailName() {
+        return mainJailName;
+    }
+
+    public Jail getMainJail() {
         return mainJail;
     }
 

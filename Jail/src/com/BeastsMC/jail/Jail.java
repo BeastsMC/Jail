@@ -34,4 +34,8 @@ public class Jail {
     public Location getTeleout() {
         return teleout;
     }
+
+    public boolean contains(Location point) {
+        return CommonFunctions.locationBetweenLocations(corner1, corner2, point);
+    }
 }
