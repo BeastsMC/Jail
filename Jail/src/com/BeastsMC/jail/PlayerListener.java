@@ -14,10 +14,10 @@ import java.util.UUID;
  */
 public class PlayerListener implements Listener {
 
-    private final Jail jail;
+    private final JailPlugin jailPlugin;
 
-    public PlayerListener(Jail jail) {
-        this.jail = jail;
+    public PlayerListener(JailPlugin jailPlugin) {
+        this.jailPlugin = jailPlugin;
     }
 
     @EventHandler(priority=EventPriority.MONITOR)
@@ -33,7 +33,7 @@ public class PlayerListener implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void playerBlockBreak(BlockBreakEvent event) {
-        if (jail.getJailedOnlinePlayers().contains(event.getPlayer().getUniqueId())) {
+        if (jailPlugin.getJailedOnlinePlayers().contains(event.getPlayer().getUniqueId())) {
             event.setCancelled(true);
         }
 
@@ -41,17 +41,17 @@ public class PlayerListener implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void playerBlockPlace(BlockPlaceEvent event) {
-        if (jail.getJailedOnlinePlayers().contains(event.getPlayer().getUniqueId())) {
+        if (jailPlugin.getJailedOnlinePlayers().contains(event.getPlayer().getUniqueId())) {
             event.setCancelled(true);
         }
     }
 
     @EventHandler(ignoreCancelled = true)
     public void playerCommand(PlayerCommandPreprocessEvent event) {
-        if (jail.getJailedOnlinePlayers().contains(event.getPlayer().getUniqueId())) {
+        if (jailPlugin.getJailedOnlinePlayers().contains(event.getPlayer().getUniqueId())) {
             String label = event.getMessage().split(" ")[0];
             label = label.replace("/", "");
-            if (!jail.getWhitelistedCommands().contains(label)) {
+            if (!jailPlugin.getWhitelistedCommands().contains(label)) {
                 event.setCancelled(true);
             }
         }
@@ -59,7 +59,7 @@ public class PlayerListener implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void playerTeleport(PlayerTeleportEvent event) {
-        if (jail.getJailedOnlinePlayers().contains(event.getPlayer().getUniqueId())) {
+        if (jailPlugin.getJailedOnlinePlayers().contains(event.getPlayer().getUniqueId())) {
             event.setCancelled(true);
         }
     }

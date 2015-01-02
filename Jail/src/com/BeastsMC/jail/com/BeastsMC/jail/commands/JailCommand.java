@@ -1,21 +1,20 @@
 package com.BeastsMC.jail.com.BeastsMC.jail.commands;
 
-import com.BeastsMC.jail.Jail;
+import com.BeastsMC.jail.JailPlugin;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
-import org.bukkit.util.StringUtil;
 
 /**
  * Created by Zane on 12/24/14.
  */
 public class JailCommand implements GenericCommand {
-    private final Jail jail;
+    private final JailPlugin jailPlugin;
 
-    public JailCommand(Jail jail) {
-        this.jail = jail;
+    public JailCommand(JailPlugin jailPlugin) {
+        this.jailPlugin = jailPlugin;
     }
 
     /**

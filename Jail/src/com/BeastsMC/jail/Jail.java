@@ -1,114 +1,37 @@
 package com.BeastsMC.jail;
 
-import com.BeastsMC.jail.com.BeastsMC.jail.commands.CommandHandler;
-import org.bukkit.configuration.InvalidConfigurationException;
-import org.bukkit.plugin.java.JavaPlugin;
-
-import java.io.File;
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashSet;
+import org.bukkit.Location;
 
 /**
- * Created by Zane on 12/24/14.
+ * Created by Zane on 1/2/15.
  */
-public class Jail extends JavaPlugin {
+public class Jail {
+    private final Location corner1;
+    private final Location corner2;
+    private final Location telein;
+    private final Location teleout;
 
-    private MySQLHandler mysql;
 
-    //Configuration settings
-    private String mainJail;
-    private boolean saveInventories;
-    private boolean saveLocatons;
-    private HashSet<String> whitelistedCommands;
-
-    private HashSet<String> jailedPlayers;
-    private ArrayList<Prisoner> jailedOnlinePlayers;
-
-    public void onEnable() {
-        try {
-            loadConfiguration();
-        } catch (IOException |InvalidConfigurationException e) {
-            getLogger().severe("Unable to load configuration! Disabling plugin.");
-            getServer().getPluginManager().disablePlugin(this);
-            e.printStackTrace();
-        }
-        setupMySQL();
-        setupListeners();
-        setupCommands();
-
-        try {
-            jailedPlayers = mysql.getAllPrisonerUUIDs();
-        } catch (SQLException e) {
-            jailedPlayers = new HashSet<String>();
-            getLogger().severe("Unable to load prisoners! Check MySQL info.");
-            e.printStackTrace();
-        }
-        jailedOnlinePlayers = new ArrayList<Prisoner>();
+    public Jail(Location corner1, Location corner2, Location telein, Location teleout) {
+        this.corner1 = corner1;
+        this.corner2 = corner2;
+        this.telein = telein;
+        this.teleout = teleout;
     }
 
-    public void onDisable() {
-        //TODO save to database
+    public Location getCorner1() {
+        return corner1;
     }
 
-    private void setupCommands() {
-        CommandHandler executor = new CommandHandler(this);
-        getCommand("jail").setExecutor(executor);
-        getCommand("jailstatus").setExecutor(executor);
-        getCommand("unjail").setExecutor(executor);
-        getCommand("jailcreate").setExecutor(executor);
-        getCommand("jailremove").setExecutor(executor);
+    public Location getCorner2() {
+        return corner2;
     }
 
-    private void setupListeners() {
-
-        PlayerListener pListener = new PlayerListener(this);
-        getServer().getPluginManager().registerEvents(pListener, this);
+    public Location getTelein() {
+        return telein;
     }
 
-    private void setupMySQL() {
-        this.mysql = new MySQLHandler(this,
-                                 getConfig().getString("database.host"),
-                                 (short)getConfig().getInt("database.port"),
-                                 getConfig().getString("database.database"),
-                                 getConfig().getString("database.username"),
-                                 getConfig().getString("database.password")
-        );
-    }
-
-    private void loadConfiguration() throws IOException, InvalidConfigurationException {
-        saveDefaultConfig();
-        getConfig().load(new File(getDataFolder(), "config.yml"));
-
-        mainJail = getConfig().getString("main-jail-name");
-        saveInventories = getConfig().getBoolean("save.inventories");
-        saveLocatons = getConfig().getBoolean("save.locations");
-        whitelistedCommands = new HashSet<String>(getConfig().getStringList("whitelisted-commands"));
-    }
-
-
-    public String getMainJail() {
-        return mainJail;
-    }
-
-    public HashSet<String> getWhitelistedCommands() {
-        return whitelistedCommands;
-    }
-
-    public boolean saveInventories() {
-        return saveInventories;
-    }
-
-    public boolean saveLocatons() {
-        return saveLocatons;
-    }
-
-    public HashSet<String> getJailedPlayers() {
-        return jailedPlayers;
-    }
-
-    public ArrayList<Prisoner> getJailedOnlinePlayers() {
-        return jailedOnlinePlayers;
+    public Location getTeleout() {
+        return teleout;
     }
 }

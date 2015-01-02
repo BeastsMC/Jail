@@ -1,8 +1,6 @@
 package com.BeastsMC.jail;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.entity.Player;
 
 import java.sql.*;
 import java.util.HashMap;
@@ -17,7 +15,7 @@ public class MySQLHandler {
 
     private static final int MAX_RETRIES = 3;
 
-    private final Jail jail;
+    private final JailPlugin jailPlugin;
     private final String url;
     private final String username;
     private final String password;
@@ -26,25 +24,25 @@ public class MySQLHandler {
 
     private HashMap<JailSQLQueries, PreparedStatement> pstmts;
 
-    public MySQLHandler(Jail jail, String host, short port, String database, String username, String password) {
-        this.jail = jail;
+    public MySQLHandler(JailPlugin jailPlugin, String host, short port, String database, String username, String password) {
+        this.jailPlugin = jailPlugin;
         this.username = username;
         this.password = password;
         this.url = String.format("jdbc:mysql://%s:%i/%s", host, port, database);
 
         if(!openConnection()) {
-            jail.getLogger().severe("Could not initialize connection to MySQL! Make sure the database info is correct.");
-            jail.getServer().getPluginManager().disablePlugin(jail);
+            jailPlugin.getLogger().severe("Could not initialize connection to MySQL! Make sure the database info is correct.");
+            jailPlugin.getServer().getPluginManager().disablePlugin(jailPlugin);
         }
 
         if(!createTables()) {
-            jail.getLogger().severe("Could not create tables! Make sure the database info is correct.");
-            jail.getServer().getPluginManager().disablePlugin(jail);
+            jailPlugin.getLogger().severe("Could not create tables! Make sure the database info is correct.");
+            jailPlugin.getServer().getPluginManager().disablePlugin(jailPlugin);
         }
 
         if(!prepareStatements()) {
-            jail.getLogger().severe("Could not create tables! Make sure the database info is correct.");
-            jail.getServer().getPluginManager().disablePlugin(jail);
+            jailPlugin.getLogger().severe("Could not create tables! Make sure the database info is correct.");
+            jailPlugin.getServer().getPluginManager().disablePlugin(jailPlugin);
         }
 
     }
@@ -58,12 +56,12 @@ public class MySQLHandler {
                 success = true;
             } catch(SQLException e) {
                 tries++;
-                jail.getLogger().severe("Could not connect to database! SQLException");
-                jail.getLogger().severe("Reattempting connection. Current retries: " + tries + "; Max: " + MAX_RETRIES);
+                jailPlugin.getLogger().severe("Could not connect to database! SQLException");
+                jailPlugin.getLogger().severe("Reattempting connection. Current retries: " + tries + "; Max: " + MAX_RETRIES);
                 e.printStackTrace();
             } catch(ClassNotFoundException e) {
                 tries = MAX_RETRIES; //Exception will not be resolved by retrying
-                jail.getLogger().severe("Could not connect to database! Class not found");
+                jailPlugin.getLogger().severe("Could not connect to database! Class not found");
                 e.printStackTrace();
             }
         }
@@ -104,7 +102,7 @@ public class MySQLHandler {
                 pstmts.put(type, stmt);
             }
         } catch (SQLException e) {
-            jail.getLogger().severe("UNABLE TO PREPARE STATEMENT: " + type.query);
+            jailPlugin.getLogger().severe("UNABLE TO PREPARE STATEMENT: " + type.query);
             e.printStackTrace();
             return false;
         }
@@ -159,7 +157,7 @@ public class MySQLHandler {
         PreparedStatement stmt = getPreparedStatement(JailSQLQueries.ADD_PRISONER);
         stmt.setString(1, prisoner);
         stmt.setString(2, jailer);
-        stmt.setString(3, jail.getMainJail());
+        stmt.setString(3, jailPlugin.getMainJail());
         stmt.setInt(4, time);
         stmt.setInt(5, time);
         stmt.setString(6, inventory);

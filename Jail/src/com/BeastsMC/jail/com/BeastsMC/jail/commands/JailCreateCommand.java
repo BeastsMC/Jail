@@ -1,16 +1,16 @@
 package com.BeastsMC.jail.com.BeastsMC.jail.commands;
 
-import com.BeastsMC.jail.Jail;
+import com.BeastsMC.jail.JailPlugin;
 import org.bukkit.command.CommandSender;
 
 /**
  * Created by Zane on 12/24/14.
  */
 public class JailCreateCommand implements GenericCommand {
-    private final Jail jail;
+    private final JailPlugin jailPlugin;
 
-    public JailCreateCommand(Jail jail) {
-        this.jail = jail;
+    public JailCreateCommand(JailPlugin jailPlugin) {
+        this.jailPlugin = jailPlugin;
     }
 
     @Override
