@@ -33,26 +33,38 @@ public class PlayerListener implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void playerBlockBreak(BlockBreakEvent event) {
+        if (jail.getJailedOnlinePlayers().contains(event.getPlayer().getUniqueId())) {
+            event.setCancelled(true);
+        }
 
     }
 
     @EventHandler(ignoreCancelled = true)
     public void playerBlockPlace(BlockPlaceEvent event) {
-
+        if (jail.getJailedOnlinePlayers().contains(event.getPlayer().getUniqueId())) {
+            event.setCancelled(true);
+        }
     }
 
     @EventHandler(ignoreCancelled = true)
     public void playerCommand(PlayerCommandPreprocessEvent event) {
-
+        if (jail.getJailedOnlinePlayers().contains(event.getPlayer().getUniqueId())) {
+            String label = event.getMessage().split(" ")[0];
+            label = label.replace("/", "");
+            if (!jail.getWhitelistedCommands().contains(label)) {
+                event.setCancelled(true);
+            }
+        }
     }
 
     @EventHandler(ignoreCancelled = true)
     public void playerTeleport(PlayerTeleportEvent event) {
-
+        if (jail.getJailedOnlinePlayers().contains(event.getPlayer().getUniqueId())) {
+            event.setCancelled(true);
+        }
     }
 
     @EventHandler(ignoreCancelled = true)
     public void playerMove(PlayerMoveEvent event) {
-
     }
 }
