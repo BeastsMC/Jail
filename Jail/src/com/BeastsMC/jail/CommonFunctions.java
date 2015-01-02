@@ -66,6 +66,14 @@ public class CommonFunctions {
 
     }
 
+    /**
+     * Checks if a point is contained within the cuboid defined by the two supplied corners.
+     *
+     * @param corner1 the first corner of the cuboid
+     * @param corner2 the second corner of the cuboid
+     * @param point   the point to check if the cuboid contains
+     * @return true is point is inside cuboid defined by the corners, else false
+     */
     public static boolean locationBetweenLocations(Location corner1, Location corner2, Location point) {
         if (corner1.getWorld() != corner2.getWorld() || corner1.getWorld() != point.getWorld()) {
             return false;
@@ -83,5 +91,6 @@ public class CommonFunctions {
                 (point.getBlockY() >= minY && point.getBlockY() <= maxY) &&
                 (point.getBlockZ() >= minZ && point.getBlockZ() <= maxZ);
     }
+
 
 }
