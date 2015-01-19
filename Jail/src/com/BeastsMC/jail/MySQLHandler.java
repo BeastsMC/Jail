@@ -203,4 +203,13 @@ public class MySQLHandler {
         int count = stmt.executeUpdate();
         return count == 1;
     }
+
+    public boolean saveInventory(String uuid, String[] items) throws SQLException {
+        PreparedStatement stmt = getPreparedStatement(JailSQLQueries.UPDATE_INVENTORY);
+        stmt.setString(1, items[0]);
+        stmt.setString(2, items[1]);
+        stmt.setString(3, items[2]);
+        int count = stmt.executeUpdate();
+        return count == 1;
+    }
 }
