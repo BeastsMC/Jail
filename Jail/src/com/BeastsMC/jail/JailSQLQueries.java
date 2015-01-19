@@ -10,6 +10,7 @@ public enum JailSQLQueries {
     FETCH_JAILS("SELECT * FROM jails"),
     FETCH_PRISONER_UUIDS("SELECT prisoner_uuid FROM prisoners"),
     TICK_PRISONER("UPDATE TABLE prisoners SET remaining=remaining-60 WHERE prisoner_uuid=?"),
+    UPDATE_INVENTORY("UPDATE TABLE prisoners SET inventory=? AND armor=? WHERE prisoner_uuid=?"),
     ADD_JAIL("INSERT INTO jails VALUES(?, ?, ?, ?, ?, ?)"),
     REMOVE_JAIL("DELETE FROM jails WHERE name=?"),
     ADD_PRISONER("INSERT INTO prisoners VALUES(?, ?, ?, ?, ?, ?, ?)"),
