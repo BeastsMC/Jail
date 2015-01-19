@@ -60,6 +60,7 @@ public class PlayerListener implements Listener {
     @EventHandler(ignoreCancelled = true)
     public void playerTeleport(PlayerTeleportEvent event) {
         if (jailPlugin.getJailedOnlinePlayers().contains(event.getPlayer().getUniqueId())) {
+            event.getPlayer().teleport(jailPlugin.getMainJail().getTelein());
             event.setCancelled(true);
         }
     }
@@ -68,6 +69,7 @@ public class PlayerListener implements Listener {
     public void playerMove(PlayerMoveEvent event) {
         if (jailPlugin.getJailedOnlinePlayers().contains(event.getPlayer())) {
             boolean cancelled = jailPlugin.getMainJail().contains(event.getTo());
+            event.getPlayer().teleport(jailPlugin.getMainJail().getTelein());
             event.setCancelled(cancelled);
         }
     }
