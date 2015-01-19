@@ -17,6 +17,8 @@ public class JailPlugin extends JavaPlugin {
 
     private MySQLHandler mysql;
 
+    public static JailPlugin instance;
+
     //Configuration settings
     private String mainJailName;
     private Jail mainJail;
@@ -28,6 +30,7 @@ public class JailPlugin extends JavaPlugin {
     private ArrayList<Prisoner> jailedOnlinePlayers;
 
     public void onEnable() {
+        instance = this;
         try {
             loadConfiguration();
         } catch (IOException |InvalidConfigurationException e) {
@@ -50,6 +53,7 @@ public class JailPlugin extends JavaPlugin {
     }
 
     public void onDisable() {
+        instance = null;
         //TODO save to database
     }
 
@@ -116,4 +120,5 @@ public class JailPlugin extends JavaPlugin {
     public ArrayList<Prisoner> getJailedOnlinePlayers() {
         return jailedOnlinePlayers;
     }
+    public MySQLHandler getMysql() { return mysql; }
 }
